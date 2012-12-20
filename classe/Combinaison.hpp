@@ -13,9 +13,9 @@ class Combinaison
         static void __print__(const returnType& res);
         static void clear();
 
-        static std::vector<returnType*> results;
     private :
         Combinaison(){};
+        static std::vector<returnType*> results;
 };
 
 
