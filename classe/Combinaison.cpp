@@ -52,10 +52,6 @@ Combinaison::returnType Combinaison::genAllFor(const int n)
         {
             //save
             res.emplace_back(vector<int>(min_index,min_index+n)); //on copie le tableau
-
-            for(int m=0;m<n;++m)
-                cout<<min_index[m]<<"";
-            cout<<endl;
             //reset
             reset();
             // pas trouvé de truc répondant au critère, on recule d'un lvl
