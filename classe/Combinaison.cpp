@@ -18,9 +18,9 @@ for(int j=i;j<n;++j)\
 
 #define next() if (--i <0) break; do ++min_index[i]; while(used[min_index[i]]== true && min_index[i] < n);
 
-Combinaison::returnType Combinaison::genAllFor(const int n)
+Combinaison::returnType* Combinaison::genAllFor(const int n)
 {
-    returnType res;
+    returnType* res = new returnType;
     const int n_1 = n-1;
     int min_index[n]; //current min index of each lvl and 1 finded result
     memset(min_index,-1,n*sizeof(int));
@@ -51,7 +51,7 @@ Combinaison::returnType Combinaison::genAllFor(const int n)
         if (i == n_1)
         {
             //save
-            res.emplace_back(vector<int>(min_index,min_index+n)); //on copie le tableau
+            res->emplace_back(vector<int>(min_index,min_index+n)); //on copie le tableau
             //reset
             reset();
             // pas trouvé de truc répondant au critère, on recule d'un lvl
@@ -65,7 +65,6 @@ Combinaison::returnType Combinaison::genAllFor(const int n)
         }
     }
 
-    //returnType& ret = res;
     return res;
 };
 

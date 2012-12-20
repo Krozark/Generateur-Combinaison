@@ -2,8 +2,9 @@
 
 int main(int argc,char * argv[])
 {
-    auto res = Combinaison::genAllFor(4);
-    Combinaison::__print__(res);
+    Combinaison::returnType* res = Combinaison::genAllFor(6);
+    Combinaison::__print__(*res);
+    delete res;
 
     return 0;
 }
