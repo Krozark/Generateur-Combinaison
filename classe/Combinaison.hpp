@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#define CACHE_SIZE 10
+
 
 class Combinaison 
 {
@@ -15,7 +17,7 @@ class Combinaison
 
     private :
         Combinaison(){};
-        static std::vector<returnType*> results;
+        static returnType* cache[CACHE_SIZE];
 };
 
 

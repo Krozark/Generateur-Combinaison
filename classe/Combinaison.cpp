@@ -18,8 +18,8 @@ for(int j=i;j<n;++j)\
 
 #define next() if (--i <0) break; do ++min_index[i]; while(used[min_index[i]]== true && min_index[i] < n);
 
-
-std::vector<Combinaison::returnType*> Combinaison::results;
+//init du cache
+Combinaison::returnType* Combinaison::cache[CACHE_SIZE] = {0};
 
 Combinaison::returnType* Combinaison::genFor(const int n)
 {
@@ -80,13 +80,14 @@ Combinaison::returnType* Combinaison::genFor(const int n)
 
 Combinaison::returnType* Combinaison::getOrGenFor(const int n)
 {
-    int size = Combinaison::results.size();
-    if (size <= n)
+    if (n <= CACHE_SIZE)
     {
-        for (int i=size+1;i<=n;++i)
-            results.emplace_back(Combinaison::genFor(i));
+        const int n_1 = n-1;
+        if (cache[n_1] == 0 )
+            cache[n_1] = Combinaison::genFor(n);
+        return Combinaison::cache[n_1];
     }
-    return Combinaison::results[n-1];
+    return Combinaison::genFor(n);
 };
 
 void Combinaison::__print__(const returnType& res)
@@ -104,11 +105,8 @@ void Combinaison::__print__(const returnType& res)
 
 void Combinaison::clear()
 {
-    const int size = results.size();
-    for(int i=0;i<size;++i)
-    {
-        delete results[i];
-    }
-    results.clear();
+    for(int i=0;i<CACHE_SIZE;++i)
+        delete cache[i];
+    memset(Combinaison::cache,0,CACHE_SIZE*sizeof(returnType*));
 };
 
