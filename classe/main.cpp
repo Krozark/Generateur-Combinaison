@@ -6,9 +6,9 @@ int main(int argc,char * argv[])
 {
     if (argc > 1)
     {
-        Combinaison::returnType* res = Combinaison::genAllFor(atoi(argv[1]));
+        Combinaison::returnType* res = Combinaison::getOrGenFor(atoi(argv[1]));
         Combinaison::__print__(*res);
-        delete res;
+        Combinaison::clear();
     }
     else
         printf("manque le nombre en param\n");

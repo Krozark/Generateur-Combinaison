@@ -18,18 +18,28 @@ for(int j=i;j<n;++j)\
 
 #define next() if (--i <0) break; do ++min_index[i]; while(used[min_index[i]]== true && min_index[i] < n);
 
-Combinaison::returnType* Combinaison::genAllFor(const int n)
+
+std::vector<Combinaison::returnType*> Combinaison::results;
+
+Combinaison::returnType* Combinaison::genFor(const int n)
 {
     returnType* res = new returnType;
+
     const int n_1 = n-1;
     int min_index[n]; //current min index of each lvl and 1 finded result
+    if (n_1 <= 0)
+    {
+        min_index[0] = 0;
+        res->emplace_back(vector<int>(min_index,min_index+1));
+        return res;
+    }
     memset(min_index,-1,n*sizeof(int));
 
     bool used[n]; // if 0...n is currently used 
     memset(used,false,n*sizeof(bool));
     
     int i = 0;//curente lvl
-
+    
     while (min_index[0] <n)
     {
         register int i_not_used;
@@ -68,6 +78,17 @@ Combinaison::returnType* Combinaison::genAllFor(const int n)
     return res;
 };
 
+Combinaison::returnType* Combinaison::getOrGenFor(const int n)
+{
+    int size = Combinaison::results.size();
+    if (size <= n)
+    {
+        for (int i=size+1;i<=n;++i)
+            results.emplace_back(Combinaison::genFor(i));
+    }
+    return Combinaison::results[n-1];
+};
+
 void Combinaison::__print__(const returnType& res)
 {
     const int size = res.size();
@@ -79,5 +100,15 @@ void Combinaison::__print__(const returnType& res)
         cout<<",";
     }
     cout<<endl;
+};
+
+void Combinaison::clear()
+{
+    const int size = results.size();
+    for(int i=0;i<size;++i)
+    {
+        delete results[i];
+    }
+    results.clear();
 };
 
